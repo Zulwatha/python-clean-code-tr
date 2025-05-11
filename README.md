@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/)
 [![Status](https://img.shields.io/badge/status-active-success)](#)
+![version](https://img.shields.io/badge/version-v1.1.0-blue)
 
 > "Kod yalnızca makine için değil, onu okuyacak diğer insanlar için de yazılır."
 
@@ -10,6 +11,9 @@ Bu rehber, Python dilinde temiz, okunabilir ve sürdürülebilir kod yazma alı�
 
 Python geliştiricileri için geçerli olan temel prensipleri, örneklerle birlikte sunar. Her bölüm, bir konuyu ele alır ve iyi/kötü uygulama örnekleriyle desteklenir. Geliştiricilerin hem bireysel projelerde hem de ekip çalışmalarında daha temiz kod yazmaları hedeflenmiştir.
 
+---
+> 📌 Versiyon: **v1.1.0** – Son güncelleme: 11 Mayıs 2025  
+> 🔗 [CHANGELOG.md](./CHANGELOG.md) dosyasından tüm sürüm geçmişine ulaşabilirsiniz.
 ---
 
 ## 📚 İçindekiler
@@ -24,6 +28,8 @@ Python geliştiricileri için geçerli olan temel prensipleri, örneklerle birli
 * [8. Kötü Pratikler (Anti-Patterns)](#8-kötü-pratikler-anti-patterns)
 * [9. OOP ve Kompozisyon Prensipleri](#9-oop-ve-kompozisyon-prensipleri)
 * [10. Pythonic Kod Yazımı](#10-pythonic-kod-yazımı)
+* [11. Sihirli Sayılardan (Magic Numbers) Kaçının](#11-sihirli-sayılardan-magic-numbers-kaçının)
+* [12. Modülerlik ve Sınıf Yapıları (Modularity and Classes)](#12-modülerlik-ve-sınıf-yapıları-modularity-and-classes)
 
 ---
 
@@ -685,6 +691,106 @@ print(f"Hello, {name}!")
 Pythonic düşünce tarzı sadece sözdizimi ile ilgili değildir. Aynı zamanda “işi en anlaşılır ve sade şekilde yapma” zihniyetini de içerir. Bu bakış açısı, temiz kodun doğal bir parçasıdır.
 
 ---
+
+## 11. Sihirli Sayılardan (Magic Numbers) Kaçının
+
+Sihirli sayılar (magic numbers), kod içerisinde doğrudan kullanılan, anlamı belirsiz sabit sayılardır. Bu tür değerler, kodun okunabilirliğini ve sürdürülebilirliğini zorlaştırır.
+
+Kodda geçen bir sayının neyi temsil ettiğini anlamak için ek bağlam gerekmesi, kodu okuyan geliştiriciler için zaman kaybına ve hata riskine yol açar.
+
+### ❌ Kötü Örnek:
+
+```python
+def calculate_discount(price):
+    return price * 0.9  # Bu oran neye göre belirlendi?
+```
+
+### ✅ İyi Örnek:
+
+```python
+DISCOUNT_RATE = 0.9
+
+def calculate_discount(price):
+    return price * DISCOUNT_RATE
+```
+0.9 değeri burada %10'luk bir indirim oranını temsil eder; ancak bu doğrudan yazıldığında anlamı belirsiz kalır — sabit bir değişkene atanarak oran hem açıklanmış hem de yönetilebilir hale getirilmiş olur.
+
+---
+
+🔖 **İpucu:** Sabitleri büyük harflerle ve `snake_case` formatında adlandırmak, Python topluluk standartlarıyla uyumludur.
+
+---
+
+## 12. Modülerlik ve Sınıf Yapıları (Modularity and Classes)
+
+Kodun yalnızca çalışması yeterli değildir; aynı zamanda sürdürülebilir, anlaşılabilir ve genişletilebilir olması gerekir. Bu hedeflere ulaşmanın yolu, projeyi anlamlı parçalara bölmekten geçer. Modülerlik ve sınıf temelli tasarım, bu bağlamda temiz kodun temel yapı taşlarındandır.
+
+### 🧱 Modüler Tasarım Neden Önemlidir?
+
+- Her modül, belirli bir sorumluluğa sahip olmalıdır.
+- Kod bölümleri birbirinden mümkün olduğunca bağımsız olmalıdır.
+- Modüller, yeniden kullanılabilir olacak şekilde tasarlanmalıdır.
+
+Python'da modülerliği sağlamak için:
+- Fonksiyonlar belirli görevlerle sınırlandırılmalı,
+- İlgili fonksiyonlar sınıflar altında gruplanmalı,
+- Bu sınıflar, işlevsel gruplara göre farklı dosyalara dağıtılmalıdır.
+
+### 📁 Uygulamalı Yapı Örneği
+
+Gerçek dünyada modüler mimariye örnek olarak Django’nun varsayılan proje yapısı verilebilir:
+
+```
+myproject/
+├── auth/
+│   ├── views.py
+│   ├── models.py
+│   └── urls.py
+├── shop/
+│   ├── views.py
+│   ├── models.py
+│   └── urls.py
+└── config/
+    ├── settings.py
+    ├── urls.py
+    └── wsgi.py
+```
+
+Bu yapıda her "app" kendi iş alanını temsil eder. Bu sayede birimlerin bağımsız olarak gelişmesi ve test edilmesi kolaylaşır.
+
+---
+
+### 🧠 Sınıflar ve Nesne Yönelimli Temizlik
+
+Sınıflar, kodu hem mantıksal hem yapısal olarak gruplamanın etkili bir yoludur. Ancak yalnızca "class" yazmak yeterli değildir. Temiz kod için sınıflar şu ilkeleri gözetmelidir:
+
+- **Single Responsibility (Tek Sorumluluk):** Her sınıf yalnızca tek bir iş yapmalı.
+- **Açık Arayüz:** Sınıf dışına açık olan metotlar net ve gerekli olanla sınırlı olmalı.
+- **Uygulanabilirlik:** Gereksiz miras veya soyutlamalardan kaçınılmalı.
+
+#### Python Örneği:
+
+```python
+class Invoice:
+    def __init__(self, amount: float):
+        self.amount = amount
+
+    def calculate_tax(self):
+        return self.amount * 0.18
+
+class InvoicePrinter:
+    def print_invoice(self, invoice: Invoice):
+        print(f"Total with tax: {invoice.amount + invoice.calculate_tax()}")
+```
+
+Burada `Invoice` sınıfı sadece veriyi ve işlemi taşır, çıktı ise ayrı bir sınıfa aittir. Bu, sorumlulukların ayrılması anlamında temiz kodun idealidir.
+
+---
+
+🔎 **Not:** Kod modülerleştikçe test edilebilirlik artar. Her sınıf ve modül, tek başına çalışabilir olmalıdır.
+
+---
+
 ### Ek Kaynaklar
 
 - [Clean Code by Robert C. Martin](https://www.oreilly.com/library/view/clean-code/9780136083238/)

@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/)
 [![Status](https://img.shields.io/badge/status-active-success)](#)
-![version](https://img.shields.io/badge/version-v1.1.0-blue)
+![version](https://img.shields.io/badge/version-v1.2.0-blue)
 
 > "Kod yalnızca makine için değil, onu okuyacak diğer insanlar için de yazılır."
 
@@ -12,7 +12,7 @@ Bu rehber, Python dilinde temiz, okunabilir ve sürdürülebilir kod yazma alı�
 Python geliştiricileri için geçerli olan temel prensipleri, örneklerle birlikte sunar. Her bölüm, bir konuyu ele alır ve iyi/kötü uygulama örnekleriyle desteklenir. Geliştiricilerin hem bireysel projelerde hem de ekip çalışmalarında daha temiz kod yazmaları hedeflenmiştir.
 
 ---
-> 📌 Versiyon: **v1.1.0** – Son güncelleme: 11 Mayıs 2025  
+> 📌 Versiyon: **v1.2.0** – Son güncelleme: 9 Haziran 2025  
 > 🔗 [CHANGELOG.md](./CHANGELOG.md) dosyasından tüm sürüm geçmişine ulaşabilirsiniz.
 ---
 
@@ -30,7 +30,8 @@ Python geliştiricileri için geçerli olan temel prensipleri, örneklerle birli
 * [10. Pythonic Kod Yazımı](#10-pythonic-kod-yazımı)
 * [11. Sihirli Sayılardan (Magic Numbers) Kaçının](#11-sihirli-sayılardan-magic-numbers-kaçının)
 * [12. Modülerlik ve Sınıf Yapıları (Modularity and Classes)](#12-modülerlik-ve-sınıf-yapıları-modularity-and-classes)
-
+* [13. Test Edilebilir Kod & Test Pratikleri](#13-test-edilebilir-kod--test-pratikleri)
+  
 ---
 
 ## 1. Giriş ve Temel Felsefe
@@ -790,6 +791,54 @@ Burada `Invoice` sınıfı sadece veriyi ve işlemi taşır, çıktı ise ayrı 
 🔎 **Not:** Kod modülerleştikçe test edilebilirlik artar. Her sınıf ve modül, tek başına çalışabilir olmalıdır.
 
 ---
+
+## 13. Test Edilebilir Kod & Test Pratikleri
+
+Kodun test edilebilir olması, yazılımın güvenilirliğini ve sürdürülebilirliğini artırır. Temiz kod, otomatik testler ile desteklenmeli ve her fonksiyonun öngörülebilir şekilde çalıştığı garanti altına alınmalıdır.
+
+### Temel İlkeler
+- **Birimi Test Edilebilir Fonksiyonlar:** Her fonksiyon, bağımsız olarak kolayca test edilebilmeli.
+- **Yan Etkisiz Kod (Pure Functions):** Yan etkisi olmayan fonksiyonlar test süreçlerini kolaylaştırır.
+- **Otomatik Testler:** Manuel kontrol yerine otomatik testler tercih edilmelidir.
+
+### Python'da Test Nasıl Yazılır?
+
+En yaygın kullanılan test kütüphanelerinden biri `pytest`’tir.  
+Aşağıda temel bir örnek gösterilmektedir:
+
+```python
+# example.py
+def add(a, b):
+    return a + b
+
+def is_even(n):
+    return n % 2 == 0
+```
+
+```python
+# test_example.py
+from example import add, is_even
+
+def test_add():
+    assert add(2, 3) == 5
+    assert add(-1, 1) == 0
+
+def test_is_even():
+    assert is_even(2) is True
+    assert is_even(3) is False
+```
+
+### Testleri Çalıştırmak
+
+```bash
+pip install pytest
+pytest
+```
+
+Testler ile kodunuzu sürekli kontrol ederek hata riskini minimize edebilirsiniz.
+
+---
+
 
 ### Ek Kaynaklar
 

@@ -1,7 +1,17 @@
-
 # 📜 Değişim Günlüğü (CHANGELOG)
 
 Bu belge, python-clean-code-tr rehberindeki anlamlı değişiklikleri, eklemeleri ve düzeltmeleri kayıt altına alır. Her sürüm, tarih ve içerik detaylarıyla birlikte listelenmiştir.
+
+---
+
+## [v1.2.0] - 2025-06-09
+
+### Eklendi
+- 13\. başlık: **Test Edilebilir Kod & Test Pratikleri**
+  - Birim test ve pytest kullanımına kısa giriş
+  - Test edilebilir fonksiyon tasarımı ve örnek kodlar
+  - Testlerin kurulumu ve çalıştırılması için yönergeler
+- İçindekiler tablosuna ilgili bağlantı eklendi
 
 ---
 
